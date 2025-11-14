@@ -4,12 +4,11 @@ build:
   commands:
     build:
       - echo "Installing dependencies"
-      - npm install -g pnpm
-      - pnpm install
+      - npm install
       - echo "Building application"
-      - pnpm build
+      - npm run build
 run:
-  command: pnpm start
+  command: npm start
   network:
     port: 8080
   env:
