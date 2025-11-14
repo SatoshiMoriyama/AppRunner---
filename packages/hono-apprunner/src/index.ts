@@ -12,7 +12,10 @@ const dbConfig = {
   port: 3306,
 };
 
-app.get("/", (c) => {
+app.get("/", async (c) => {
+  // 100msecの待機
+  await new Promise((resolve) => setTimeout(resolve, 100));
+
   const testValue = process.env.TEST_VALUE || "環境変数が設定されていません";
   return c.json({
     message: "Hello from Hono on App Runner!",
