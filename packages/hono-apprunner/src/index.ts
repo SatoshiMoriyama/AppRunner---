@@ -27,7 +27,7 @@ app.get("/health", (c) => {
 app.get("/db-test", async (c) => {
   try {
     const connection = await mysql.createConnection(dbConfig);
-    const [rows] = await connection.execute("SELECT 1 as test");
+    const [rows] = await connection.execute("select * from apprunner.orders");
     await connection.end();
 
     return c.json({
