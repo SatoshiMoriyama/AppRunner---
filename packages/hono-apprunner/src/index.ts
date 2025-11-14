@@ -3,7 +3,11 @@ import { Hono } from "hono";
 const app = new Hono();
 
 app.get("/", (c) => {
-  return c.json({ message: "Hello from Hono on App Runner!" });
+  const testValue = process.env.TEST_VALUE || "環境変数が設定されていません";
+  return c.json({
+    message: "Hello from Hono on App Runner!",
+    testValue: testValue,
+  });
 });
 
 app.get("/health", (c) => {

@@ -14,3 +14,5 @@ run:
   env:
     - name: PORT
       value: "8080"
+    - name: TEST_VALUE
+      value_from: "arn:aws:secretsmanager:ap-northeast-1:495236580548:secret:test/name-Kii38B:test"
