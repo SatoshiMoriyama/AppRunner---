@@ -1,5 +1,5 @@
 version: 1.0
-runtime: nodejs18
+runtime: nodejs22
 build:
   commands:
     build:
@@ -9,7 +9,6 @@ build:
       - echo "Building application"
       - pnpm build
 run:
-  runtime-version: 18
   command: pnpm start
   network:
     port: 8080
