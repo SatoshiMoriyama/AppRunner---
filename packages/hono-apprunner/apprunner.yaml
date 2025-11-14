@@ -1,0 +1,18 @@
+version: 1.0
+runtime: nodejs18
+build:
+  commands:
+    build:
+      - echo "Installing dependencies"
+      - npm install -g pnpm
+      - pnpm install
+      - echo "Building application"
+      - pnpm build
+run:
+  runtime-version: 18
+  command: pnpm start
+  network:
+    port: 8080
+  env:
+    - name: PORT
+      value: "8080"
