@@ -14,7 +14,7 @@ const dbConfig = {
 
 app.get("/", async (c) => {
   // 100msecの待機
-  await new Promise((resolve) => setTimeout(resolve, 100));
+  await new Promise((resolve) => setTimeout(resolve, 500));
 
   const testValue = process.env.TEST_VALUE || "環境変数が設定されていません";
   return c.json({
