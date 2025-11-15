@@ -27,6 +27,27 @@ app.get("/health", (c) => {
   return c.json({ status: "OK" });
 });
 
+app.get("/external-test", async (c) => {
+  try {
+    // 外部API（httpbin.org）にリクエスト
+    const response = await fetch("https://httpbin.org/get");
+    const data = await response.json();
+
+    return c.json({
+      status: "External communication successful",
+      externalResponse: data,
+    });
+  } catch (error: any) {
+    return c.json(
+      {
+        status: "External communication failed",
+        error: error.message || "Unknown error",
+      },
+      500
+    );
+  }
+});
+
 app.get("/db-test", async (c) => {
   try {
     const connection = await mysql.createConnection(dbConfig);
