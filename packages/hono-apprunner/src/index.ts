@@ -46,7 +46,7 @@ app.get("/external-test", async (c) => {
 app.get("/db-test", async (c) => {
   try {
     const connection = await mysql.createConnection(dbConfig);
-    const [rows] = await connection.execute("select * from apprunner.orders");
+    const [rows] = await connection.execute("select 1");
     await connection.end();
 
     return c.json({
