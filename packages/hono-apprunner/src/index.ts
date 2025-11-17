@@ -13,13 +13,9 @@ const dbConfig = {
 };
 
 app.get("/", async (c) => {
-  // 100msecの待機
   await new Promise((resolve) => setTimeout(resolve, 500));
-
-  const testValue = process.env.TEST_VALUE || "環境変数が設定されていません";
   return c.json({
     message: "Hello from Hono on App Runner!",
-    testValue: testValue,
   });
 });
 
@@ -29,8 +25,7 @@ app.get("/health", (c) => {
 
 app.get("/external-test", async (c) => {
   try {
-    // 外部API（httpbin.org）にリクエスト
-    const response = await fetch("https://httpbin.org/get");
+    const response = await fetch("http://checkip.amazonaws.com");
     const data = await response.json();
 
     return c.json({
