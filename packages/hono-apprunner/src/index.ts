@@ -15,7 +15,7 @@ const dbConfig = {
 app.get("/", async (c) => {
   await new Promise((resolve) => setTimeout(resolve, 500));
   return c.json({
-    message: "Hello from Hono on App Runner!",
+    message: "Hello from Hono on App Runner!!",
   });
 });
 
