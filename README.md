@@ -1,12 +1,17 @@
-# App Runner CDK Stack
+# App Runner サンプルプロジェクト
 
-AWS App Runner のサンプルアプリケーションをデプロイするための CDK プロジェクトです。
+AWS App Runner で Hono アプリケーションをデプロイするサンプルプロジェクトです。
 
-## 構成
+## プロジェクト構成
 
-このスタックは以下のリソースをデプロイします：
+このプロジェクトはモノレポ構成で、以下のパッケージを含みます：
 
-- **App Runner Service**: GitHub リポジトリから自動デプロイされる Web アプリケーション
+- **packages/hono-apprunner**: Hono を使った Web アプリケーション
+- **packages/cdk**: AWS CDK によるインフラ定義
+
+## デプロイされるリソース
+
+- **App Runner Service**: GitHub リポジトリから自動デプロイされる Hono アプリケーション
 - **Aurora Serverless v2**: MySQL 互換のデータベース（0-1 ACU でスケール）
 - **VPC**: 2AZ 構成、NAT Gateway 付き
 - **VPC Connector**: App Runner から VPC リソースへの接続
@@ -22,10 +27,10 @@ AWS App Runner のサンプルアプリケーションをデプロイするた�
 1. 環境変数の設定
 
 ```bash
-cp .env.sample .env
+cp packages/cdk/.env.sample packages/cdk/.env
 ```
 
-`.env` ファイルを編集して以下の値を設定：
+`packages/cdk/.env` ファイルを編集して以下の値を設定：
 
 - `REPOSITORY_URL`: GitHub リポジトリの URL
 - `GITHUB_CONNECTION_ARN`: App Runner の GitHub 接続 ARN
@@ -39,6 +44,7 @@ pnpm install
 ## デプロイ
 
 ```bash
+cd packages/cdk
 pnpm cdk deploy
 ```
 
@@ -49,6 +55,27 @@ pnpm cdk deploy
 - `pnpm cdk diff` - デプロイ済みスタックとの差分を表示
 - `pnpm cdk synth` - CloudFormation テンプレートを生成
 - `pnpm cdk destroy` - スタックを削除
+
+※ CDK コマンドは `packages/cdk` ディレクトリで実行してください
+
+## Hono アプリケーション
+
+### エンドポイント
+
+- `GET /`: ヘルスチェック用エンドポイント
+- `GET /health`: ヘルスチェック用エンドポイント
+- `GET /db-test`: Aurora データベース接続テスト
+- `GET /external-test`: 外部通信テスト（NAT Gateway 経由）
+
+### ローカル開発
+
+```bash
+cd packages/hono-apprunner
+pnpm install
+pnpm dev
+```
+
+ローカルでは `http://localhost:3000` でアクセス可能です。
 
 ## 出力される情報
 
