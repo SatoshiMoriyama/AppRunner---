@@ -26,11 +26,11 @@ app.get("/health", (c) => {
 app.get("/external-test", async (c) => {
   try {
     const response = await fetch("http://checkip.amazonaws.com");
-    const data = await response.json();
+    const ipAddress = await response.text();
 
     return c.json({
       status: "External communication successful",
-      externalResponse: data,
+      ipAddress: ipAddress.trim(),
     });
   } catch (error: any) {
     return c.json(
